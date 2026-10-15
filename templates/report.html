@@ -1,0 +1,14 @@
+{% extends 'base.html' %}{% block title %}Report an issue{% endblock %}{% block content %}
+<section class="page-intro"><div class="eyebrow">HELP US TAKE BETTER CARE</div><h1>Tell us what needs <em>attention.</em></h1><p>A few details are all it takes. Your report goes straight to the park care team.</p></section>
+<section class="form-layout"><div class="form-card"><form method="post" enctype="multipart/form-data">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="form-section-title"><span class="step-badge">1</span><div><h2>Your details</h2><p>So we can follow up if needed.</p></div></div>
+  <div class="field-grid"><label>Your name<input required maxlength="100" name="name" autocomplete="name" placeholder="e.g. Alex Morgan" value="{{ values.get('name','') }}"></label><label>Email address<input required type="email" maxlength="254" name="email" autocomplete="email" placeholder="you@example.com" value="{{ values.get('email','') }}"></label></div>
+  <div class="form-section-title section-gap"><span class="step-badge">2</span><div><h2>About the issue</h2><p>Tell us where and what happened.</p></div></div>
+  <label>Park or location<input required maxlength="160" name="location" placeholder="Park name, area, or nearest landmark" value="{{ values.get('location','') }}"></label>
+  <label>Issue category<select required name="category"><option value="">Choose a category</option>{% for category in categories %}<option value="{{ category }}" {% if values.get('category') == category %}selected{% endif %}>{{ category }}</option>{% endfor %}</select></label>
+  <label>Describe the issue<textarea required minlength="10" maxlength="3000" rows="5" name="description" placeholder="What did you notice? Include details that could help the team find it.">{{ values.get('description','') }}</textarea><span class="field-hint">10–3,000 characters</span></label>
+  <label class="upload-box"><span class="upload-icon">＋</span><span><b>Add a photo <small>(optional)</small></b><small>JPG, PNG or WebP · up to 5 MB</small></span><input type="file" name="photo" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"></label>
+  <button class="button button-primary submit-button" type="submit">Send my report <span>↗</span></button><p class="privacy-note">Your contact details are only used to manage this report.</p>
+</form></div><aside class="form-aside"><div class="aside-illustration">🌿</div><h3>Thank you for noticing.</h3><p>Every thoughtful report helps keep shared green spaces welcoming, safe, and full of life.</p><div class="aside-rule"></div><p class="aside-small">After submitting, you'll get a unique tracking ID. Keep it handy to check your report's progress.</p></aside></section>
+{% endblock %}

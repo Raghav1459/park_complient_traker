@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#164a3c">
+  <title>{% block title %}ParkCare{% endblock %} | ParkCare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="site-header"><div class="nav-wrap">
+  <a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">✿</span><span>Park<span class="brand-light">Care</span><small>BETTER PARKS, TOGETHER</small></span></a>
+  <nav aria-label="Main navigation"><a href="{{ url_for('report') }}">Report an issue</a><a href="{{ url_for('track') }}">Track complaint</a><a class="nav-admin" href="{{ url_for('admin_dashboard') if session.get('admin_id') else url_for('admin_login') }}">{{ 'Dashboard' if session.get('admin_id') else 'Admin' }}</a></nav>
+</div></header>
+<main>
+  {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-stack" role="status">{% for category, message in messages %}<div class="flash flash-{{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer class="site-footer"><div><a class="footer-brand" href="{{ url_for('home') }}">ParkCare</a><span>Small actions make greener places.</span></div><span>VTU Project 71 · {{ current_year }}</span></footer>
+</body></html>
